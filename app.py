@@ -88,10 +88,11 @@ def register():
 
         # Create new user
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        hashed_password_str = hashed_password.decode('utf-8')
         new_user = {
             'username': username,
             'email': email,
-            'password': hashed_password,
+            'password': hashed_password_str,
             'projects': []
         }
 
@@ -117,14 +118,18 @@ def login():
         user_data = db.users.find_one({'email': email})
 
         # Authenticate user
-        if user_data and bcrypt.checkpw(password.encode('utf-8'), user_data['password']):
-            user = User(user_data)
-            login_user(user)
-            flash('Logged in successfully.', 'success')
-            # Redirect to the dashboard after successful login
-            return redirect(url_for('dashboard'))
-        else:
-            flash('Invalid email or password.', 'danger')
+        if user_data:
+            stored_password = user_data['password'].encode('utf-8')  # Add this line
+
+            # Authenticate user
+            if bcrypt.checkpw(password.encode('utf-8'), stored_password):  # Update this line
+                user = User(user_data)
+                login_user(user)
+                flash('Logged in successfully.', 'success')
+                # Redirect to the dashboard after successful login
+                return redirect(url_for('dashboard'))
+            else:
+                flash('Invalid email or password.', 'danger')
 
     # Render the login template
     return render_template('login.html')
