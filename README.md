@@ -51,9 +51,7 @@ npm -v
 -> (This command should generate an output.css file in the static/css directory, which should contain the compiled Tailwind CSS styles).
 
 5. Create a .env file and add the follwing API keys:
-APP_SECRET_KEY = '19cee4b711c3f79dd62a2af4f511291c'
-GOOGLE_MAPS_API_KEY='AIzaSyCxTyWZ7Xo1dP6PhKmX4MKeRz7dt571dQ0'
-OIKO_API_KEY = 'bd78bddd56e64d09afd3b3cf6edcf9fe'
+[Add API_Secret_Key as well as API Keys for Google Maps, Oikolabs ]
 
 6. Install MongoDB and import policy recommendations:
 - Visit the MongoDB download page (https://www.mongodb.com/try/download/community) and download the MongoDB Community Server for your operating system.
