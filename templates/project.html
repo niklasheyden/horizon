@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="grid grid-cols-3 gap-5 mb-5">
+        <div class="bg-white rounded-lg px-0 py-0 shadow-lg">
+            <div id="map" class="h-44 rounded-t-lg"></div>
+            <div class="p-5">
+            <h1 class="text-slate-900 text-base font-bold text-4xl tracking-tight">{{ project.name }}</h1>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <h3 class="text-slate-900 mt-5 text-base font-medium tracking-tight">Average Temperature (°C)</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-2 text-sm">{{ climate_stats.avg_temperature|round(2) }}</p>
+                </div>
+                <div>
+                    <h3 class="text-slate-900 mt-5 text-base font-medium tracking-tight">Average Wind Speed (m/s)</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-2 text-sm">{{ climate_stats.avg_wind_speed|round(2) }}</p>
+                </div>
+                <div>
+                    <h3 class="text-slate-900 mt-5 text-base font-medium tracking-tight">Average Surface Solar Radiation (W/m²)</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-2 text-sm">{{ climate_stats.avg_surface_solar_radiation|round(2) }}</p>
+                </div>
+                <div>
+                    <h3 class="text-slate-900 mt-5 text-base font-medium tracking-tight">Average Surface Thermal Radiation (W/m²)</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mt-2 text-sm">{{ climate_stats.avg_surface_thermal_radiation|round(2) }}</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="bg-white rounded-lg px-0 py-0 shadow-lg px-8 py-4">
+            <h2 class="text-slate-900 mt-2 mb-2 text-base font-bold tracking-tight">Climate Risks</h2>
+            <div id="climate-risks"></div>
+        </div>
+        <div class="bg-white rounded-lg px-0 py-0 shadow-lg px-8 py-4 overflow-scroll">
+            <h2 class="text-slate-900 mt-2 mb-5 text-base font-bold tracking-tight">Policy Recommendations</h2>
+            <div id="risk-recommendations" class="max-h-96">
+        </div>
+    </div>
+    </div>
+    <div class="grid grid-cols-2 gap-5">
+        <div class="bg-white rounded-lg px-0 py-0 shadow-lg px-8 py-4">
+            <h2 class="text-slate-900 mt-2 mb-2 text-base font-bold tracking-tight">Annual Mean Temperature</h2>
+            <canvas id="annual-mean-temperature-chart" style="height: 400px;"></canvas>
+        </div>
+        <div class="bg-white rounded-lg px-0 py-0 shadow-lg px-8 py-4">
+            <h2 class="text-slate-900 mt-2 mb-2 text-base font-bold tracking-tight">Daily Average Temperature</h2>
+            <canvas id="monthly-avg-temperature-chart"></canvas>
+        </div>
+    </div>
+
+    {% block extra_js %}
+        <script>
+            {# Add event listener to run the code after the DOM content is loaded #}
+            document.addEventListener('DOMContentLoaded', function() {
+                // Get project latitude and longitude and initialize the map
+                const project_lat = Number('{{ project.lat }}');
+                const project_lon = Number('{{ project.lon }}');
+                initMap(project_lat, project_lon);
+
+                // Get annual temperature data and create the annual temperature chart
+                const annualMeanTempsData = {{ climate_stats.annual_mean_temps|tojson }};
+                const annualMaxTempsData = {{ climate_stats.annual_max_temps|tojson }};
+                const annualMinTempsData = {{ climate_stats.annual_min_temps|tojson }};
+                annualTempChart(annualMeanTempsData, annualMaxTempsData, annualMinTempsData);
+
+                // Get monthly average temperature data and create the monthly average temperature chart
+                const monthlyAvgTempsData = {{ climate_stats.avg_daily_temp_per_month|tojson }};
+                const avgMonthlyTemps = calculateAvgMonthlyTemp(monthlyAvgTempsData);
+                monthlyAvgTempChart(avgMonthlyTemps);
+
+                // Get and process climate data and policy recommendations
+                const climateData = {{ climate_data|tojson|safe }};
+                const policyRecommendations = {{ policy_recommendations|tojson|safe }};
+                processClimateData(climateData.maxTemperature, climateData.precipitation, climateData.solarRadiation, climateData.windSpeed, policyRecommendations);
+            });
+        </script>
+
+        <!-- Include external JavaScript files -->
+        <script src="/static/js/initMap.js"></script>
+        <script src="/static/js/calculateAvgMonthlyTemp.js"></script>
+        <script src="/static/js/monthlyAvgTempChart.js"></script>
+        <script src="/static/js/annualTempChart.js"></script>
+        <script src="/static/js/calculateClimateRisks.js"></script>
+    {% endblock %}
+
+{% endblock %}
+
+
+
+
+
+
