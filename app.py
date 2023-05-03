@@ -28,11 +28,21 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 # MongoDB setup
-client = MongoClient('mongodb://localhost:27017/')
+mongodb_uri = os.environ.get("MONGODB_URI")
+client = MongoClient(mongodb_uri)
+
 db = client['horizon']
 recommendations_collection = db["recommendations"]
 users_collection = db["users"]
 projects_collection = db["projects"]
+
+# client = MongoClient('mongodb://localhost:27017/')
+# db = client['horizon']
+# recommendations_collection = db["recommendations"]
+# users_collection = db["users"]
+# projects_collection = db["projects"]
+# mongodb_uri = os.environ.get("MONGODB_URI")
+# client = MongoClient(mongodb_uri)
 
 # User class for Flask login
 class User(UserMixin):
