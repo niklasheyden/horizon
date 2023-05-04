@@ -48,6 +48,7 @@
         <main class="container mx-auto mt-10">
             {% block content %}{% endblock %}
         </main>
+        <!-- After getting an API error from Google, I had to follow there documentation and change the scipt below. I didn't remove but just commented out the old script just to be safe -->
         <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxTyWZ7Xo1dP6PhKmX4MKeRz7dt571dQ0&libraries=places"></script> -->
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFMQGkCyqBbXyfr2kxBtHoiAzOFpa6IdE&libraries&libraries=places&callback=initMap"></script>
     </body>
