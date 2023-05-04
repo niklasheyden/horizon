@@ -1,5 +1,5 @@
-# Youtube Video: https://youtu.be/n_9kbSayW4M
-# I am hosting the application on Heroku. You can access it through this link: https://frozen-citadel-66233.herokuapp.com
+### Youtube Video: https://youtu.be/n_9kbSayW4M
+### I am hosting the application on Heroku. You can access it through this link: https://frozen-citadel-66233.herokuapp.com
 
 # Project Title
 Horizon – A Flask application for analyzing climate data and providing policy recommendations.
