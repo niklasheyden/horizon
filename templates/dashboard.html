@@ -43,22 +43,27 @@
         </div>
 
         <h2 class="text-2xl mb-6 font-semibold">Your projects</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {% for project in projects_list %}
-                <div class="bg-white shadow-lg rounded-lg p-4">
-                    <a href="{{ url_for('project', project_id=project._id) }}" class="text-blue-500 hover:text-blue-700">{{ project.name }}</a>
-                    <form action="/delete_project" method="post" class="inline">
-                        <input type="hidden" name="project_id" value="{{ project._id }}">
-                        <button type="submit" class="bg-red-500 text-white py-1 px-2 rounded float-right">Delete</button>
-                    </form>
-                </div>
-            {% endfor %}
-        </div>
+        {% if projects_list|length > 0 %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {% for project in projects_list %}
+                    <div class="bg-white shadow-lg rounded-lg p-4">
+                        <a href="{{ url_for('project', project_id=project._id) }}" class="text-blue-500 hover:text-blue-700">{{ project.name }}</a>
+                        <form action="/delete_project" method="post" class="inline">
+                            <input type="hidden" name="project_id" value="{{ project._id }}">
+                            <button type="submit" class="bg-red-500 text-white py-1 px-2 rounded float-right">Delete</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>You haven't created any projects yet.</p>
+        {% endif %}
     </div>
     {% block extra_js %}
         <script src="{{ url_for('static', filename='js/addressAutocomplete.js') }}"></script>
     {% endblock %}
 {% endblock %}
+
 
 
 

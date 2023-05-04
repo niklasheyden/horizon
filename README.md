@@ -1,6 +1,8 @@
+# Youtube Video: https://youtu.be/n_9kbSayW4M
+# I am hosting the application on Heroku. You can access it through this link: https://frozen-citadel-66233.herokuapp.com
+
 # Project Title
 Horizon – A Flask application for analyzing climate data and providing policy recommendations.
-
 
 ## Description
 This project is a Flask web application that uses Jinja for templating, Tailwind CSS for styling, and MongoDB for data storage. The Climate Risk Assessment Tool allows users to input a location and receive climate data, risk assessments, and policy recommendations based on the analysis of historical and current climate data.

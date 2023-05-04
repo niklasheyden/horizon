@@ -1,4 +1,4 @@
-// Define the annualTempChart function, which takes three arrays as input: annualMeanTempsData, annualMaxTempsData, and annualMinTempsData
+// Define the annualTempChart function which takes three arrays as input: annualMeanTempsData, annualMaxTempsData and annualMinTempsData
 function annualTempChart(annualMeanTempsData, annualMaxTempsData, annualMinTempsData) {
     // Generate an array of labels for the x-axis corresponding to the years 2010 to the last year of data
     const chart_labels = annualMeanTempsData.map((_, idx) => 2010 + idx);
@@ -6,7 +6,7 @@ function annualTempChart(annualMeanTempsData, annualMaxTempsData, annualMinTemps
     // Get the canvas element with the ID "annual-mean-temperature-chart" and its 2D rendering context
     const ctx = document.getElementById("annual-mean-temperature-chart").getContext("2d");
 
-    // Create a new Chart.js instance, passing in the canvas context and a configuration object
+    // Create a new Chart.js instance passing in the canvas context and a configuration object
     const chart = new Chart(ctx, {
         // Set the chart type to "line"
         type: "line",

@@ -1,4 +1,4 @@
-// The script listens for the DOMContentLoaded event which fires when the HTML document has been completely loaded and parsed
+// The script listens for the DOMContentLoaded event which fires when the HTML document has been completely loaded
 document.addEventListener("DOMContentLoaded", function () {
     // Get the HTML element with the ID "address"
     const input = document.getElementById("address");

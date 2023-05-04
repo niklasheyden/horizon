@@ -19,8 +19,6 @@ app.secret_key = '19cee4b711c3f79dd62a2af4f511291c'
 load_dotenv()
 google_maps_api_key = os.environ.get("GOOGLE_MAPS_API_KEY")
 oiko_api_key = os.environ.get("OIKO_API_KEY")
-# noaa_api_key = os.environ.get("NOAA_API_KEY")
-# openweather_api_key = os.environ.get("OPENWEATHER_API_KEY")
 
 # Flask-Login setup
 login_manager = LoginManager()
@@ -36,6 +34,7 @@ recommendations_collection = db["recommendations"]
 users_collection = db["users"]
 projects_collection = db["projects"]
 
+# Uncomment the code below if you decide to locally set up MongoDB instead of using the live application
 # client = MongoClient('mongodb://localhost:27017/')
 # db = client['horizon']
 # recommendations_collection = db["recommendations"]
@@ -119,10 +118,10 @@ def login():
 
         # Authenticate user
         if user_data:
-            stored_password = user_data['password'].encode('utf-8')  # Add this line
+            stored_password = user_data['password'].encode('utf-8')
 
             # Authenticate user
-            if bcrypt.checkpw(password.encode('utf-8'), stored_password):  # Update this line
+            if bcrypt.checkpw(password.encode('utf-8'), stored_password): 
                 user = User(user_data)
                 login_user(user)
                 flash('Logged in successfully.', 'success')
@@ -247,7 +246,7 @@ def project(project_id):
         flash('Project not found.', 'danger')
         return redirect(url_for('dashboard'))
     
-    # If the project does not have climate data, show an error message
+    # If the project does not have climate data show an error message
     if not project_data.get('climate_stats'):
         flash('Climate data is missing.', 'danger')
         return redirect(url_for('dashboard'))

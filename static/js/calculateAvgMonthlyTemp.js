@@ -7,7 +7,7 @@ function calculateAvgMonthlyTemp(data) {
     let monthSums = Array(12).fill(0);
     let monthCounts = Array(12).fill(0);
 
-    // Iterate through the data array, summing up the temperatures for each month and counting the number of temperatures for each month
+    // Iterate through the data array summing up the temperatures for each month and counting the number of temperatures for each month
     data.forEach((temp, i) => {
         // Calculate the month index (0-11) based on the current index i
         let monthIndex = i % 12;
